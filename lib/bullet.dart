@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
 
@@ -12,7 +13,13 @@ class Bullet extends SpriteComponent with HasGameReference {
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load('star_tiny.png');
-    await FlameAudio.play('TECH WEAPON Gun Shot Phaser Down 02.wav');
+    await FlameAudio.play(
+      'TECH WEAPON Gun Shot Phaser Down 02.wav',
+      volume: 0.5,
+    );
+
+    // Add hitbox for collision detection with meteors
+    add(CircleHitbox());
   }
 
   @override

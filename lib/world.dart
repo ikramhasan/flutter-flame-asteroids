@@ -100,11 +100,12 @@ class MeteorSpawner extends Component with HasGameReference {
         break;
     }
 
-    // Create and add the meteor
+    // Create and add the meteor (always spawn large meteors)
     final meteor = Meteor(
       position: spawnPosition,
       velocity: velocity,
-      meteorSize: meteorSize,
+      meteorSize: MeteorSize.large,
+      size: meteorSize,
     );
 
     parent?.add(meteor);

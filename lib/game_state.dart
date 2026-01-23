@@ -19,8 +19,9 @@ class GameStateManager {
 
   /// Triggers the game over state
   void triggerGameOver({String reason = 'Game Over'}) {
-    if (_currentState == GameState.gameOver)
+    if (_currentState == GameState.gameOver) {
       return; // Prevent multiple triggers
+    }
 
     _currentState = GameState.gameOver;
     FlameAudio.play('NEGATIVE Failure Descending Chime 05.wav');
