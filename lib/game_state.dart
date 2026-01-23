@@ -17,6 +17,19 @@ class GameStateManager {
   bool get isPlaying => _currentState == GameState.playing;
   bool get isGameOver => _currentState == GameState.gameOver;
 
+  // Scoring system
+  static const int largeMeteorPoints = 50;
+  static const int smallMeteorPoints = 100;
+
+  int _score = 0;
+
+  int get score => _score;
+
+  /// Adds points to the score
+  void addScore(int points) {
+    _score += points;
+  }
+
   /// Triggers the game over state
   void triggerGameOver({String reason = 'Game Over'}) {
     if (_currentState == GameState.gameOver) {
@@ -32,6 +45,7 @@ class GameStateManager {
   /// Restarts the game and resets to playing state
   void restartGame() {
     _currentState = GameState.playing;
+    _score = 0; // Reset score
     game.overlays.remove('GameOver');
     game.resumeEngine();
 
@@ -40,3 +54,4 @@ class GameStateManager {
     game.resetWorld();
   }
 }
+

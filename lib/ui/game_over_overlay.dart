@@ -25,6 +25,18 @@ class GameOverOverlay extends StatelessWidget {
                 shadows: [Shadow(color: Colors.red, blurRadius: 20)],
               ),
             ),
+            const SizedBox(height: 24),
+            Text(
+              'SCORE: ${game.stateManager.score}',
+              style: const TextStyle(
+                fontSize: 36,
+                fontWeight: FontWeight.bold,
+                color: Colors.white,
+                fontFamily: 'Kenney',
+                letterSpacing: 2,
+                shadows: [Shadow(color: Colors.blueAccent, blurRadius: 10)],
+              ),
+            ),
             const SizedBox(height: 48),
             ElevatedButton(
               onPressed: () {

@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:asteroids/bullet.dart';
+import 'package:asteroids/game.dart';
+import 'package:asteroids/game_state.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame_audio/flame_audio.dart';
@@ -14,7 +16,8 @@ class MeteorSprite {
 /// Enum to track meteor size
 enum MeteorSize { large, small }
 
-class Meteor extends SpriteComponent with HasGameReference, CollisionCallbacks {
+class Meteor extends SpriteComponent
+    with HasGameReference<AsteroidsGame>, CollisionCallbacks {
   Meteor({
     required super.position,
     required this.velocity,
@@ -111,8 +114,12 @@ class Meteor extends SpriteComponent with HasGameReference, CollisionCallbacks {
       other.removeFromParent();
 
       if (meteorSize == MeteorSize.large) {
-        // Large meteor: spawn 2-3 small meteors
+        // Large meteor: spawn 2-3 small meteors and add 50 points
+        game.stateManager.addScore(GameStateManager.largeMeteorPoints);
         _spawnSmallMeteors();
+      } else {
+        // Small meteor: add 100 points
+        game.stateManager.addScore(GameStateManager.smallMeteorPoints);
       }
 
       // Remove this meteor
