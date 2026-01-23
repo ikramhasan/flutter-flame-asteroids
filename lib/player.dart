@@ -31,7 +31,7 @@ class Ship extends SpriteComponent
     // Create thruster effect as a child component
     _thrusterEffect = SpriteComponent(
       sprite: await Sprite.load('effect_purple.png'),
-      size: Vector2(30, 30), // Adjust size as needed
+      size: Vector2(30, 20), // Adjust size as needed
       anchor: Anchor.topCenter,
       position: Vector2(
         size.x / 2,
