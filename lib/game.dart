@@ -16,6 +16,7 @@ class AsteroidsGame extends FlameGame
     await _preloadAssets();
     
     stateManager = GameStateManager(this);
+    await stateManager.loadHighScore();
     world = GameWorld();
   }
 

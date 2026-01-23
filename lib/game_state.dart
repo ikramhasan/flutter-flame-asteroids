@@ -1,5 +1,6 @@
 import 'package:asteroids/game.dart';
 import 'package:flame_audio/flame_audio.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 /// Enum representing the different states of the game
 enum GameState { playing, gameOver }
@@ -9,6 +10,8 @@ class GameStateManager {
   GameStateManager(this.game);
 
   final AsteroidsGame game;
+
+  static const String _highScoreKey = 'high_score';
 
   GameState _currentState = GameState.playing;
 
@@ -22,21 +25,50 @@ class GameStateManager {
   static const int smallMeteorPoints = 100;
 
   int _score = 0;
+  int _highScore = 0;
 
   int get score => _score;
+  int get highScore => _highScore;
+
+  /// Whether current score is a new high score
+  bool get isNewHighScore => _score > 0 && _score >= _highScore;
+
+  /// Loads the high score from persistent storage
+  Future<void> loadHighScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    _highScore = prefs.getInt(_highScoreKey) ?? 0;
+  }
+
+  /// Saves the high score to persistent storage
+  Future<void> _saveHighScore() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_highScoreKey, _highScore);
+  }
 
   /// Adds points to the score
   void addScore(int points) {
     _score += points;
   }
 
+  /// Updates high score if current score is higher
+  Future<void> _updateHighScore() async {
+    if (_score > _highScore) {
+      _highScore = _score;
+      await _saveHighScore();
+    }
+  }
+
   /// Triggers the game over state
-  void triggerGameOver({String reason = 'Game Over'}) {
+  Future<void> triggerGameOver({String reason = 'Game Over'}) async {
     if (_currentState == GameState.gameOver) {
       return; // Prevent multiple triggers
     }
 
     _currentState = GameState.gameOver;
+    
+    // Update high score before showing game over screen
+    await _updateHighScore();
+    
     FlameAudio.play('NEGATIVE Failure Descending Chime 05.wav');
     game.overlays.add('GameOver');
     game.pauseEngine();
@@ -54,4 +86,3 @@ class GameStateManager {
     game.resetWorld();
   }
 }
-

@@ -37,6 +37,49 @@ class GameOverOverlay extends StatelessWidget {
                 shadows: [Shadow(color: Colors.blueAccent, blurRadius: 10)],
               ),
             ),
+            const SizedBox(height: 16),
+            if (game.stateManager.isNewHighScore)
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16,
+                  vertical: 8,
+                ),
+                decoration: BoxDecoration(
+                  gradient: const LinearGradient(
+                    colors: [Colors.amber, Colors.orange],
+                  ),
+                  borderRadius: BorderRadius.circular(8),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.amber.withValues(alpha: 0.5),
+                      blurRadius: 15,
+                      spreadRadius: 2,
+                    ),
+                  ],
+                ),
+                child: const Text(
+                  '🏆 NEW HIGH SCORE! 🏆',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                    fontFamily: 'Kenney',
+                    letterSpacing: 1,
+                  ),
+                ),
+              ),
+            if (!game.stateManager.isNewHighScore)
+              Text(
+                'HIGH SCORE: ${game.stateManager.highScore}',
+                style: TextStyle(
+                  fontSize: 24,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber.shade300,
+                  fontFamily: 'Kenney',
+                  letterSpacing: 2,
+                  shadows: const [Shadow(color: Colors.amber, blurRadius: 10)],
+                ),
+              ),
             const SizedBox(height: 48),
             ElevatedButton(
               onPressed: () {
