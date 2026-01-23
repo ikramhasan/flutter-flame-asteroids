@@ -1,9 +1,13 @@
 import 'dart:math';
 import 'package:asteroids/bullet.dart';
+import 'package:asteroids/game.dart';
+import 'package:asteroids/meteor.dart';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/services.dart';
 
-class Ship extends SpriteComponent with KeyboardHandler {
+class Ship extends SpriteComponent
+    with KeyboardHandler, CollisionCallbacks, HasGameReference<AsteroidsGame> {
   Ship({super.position}) : super(size: Vector2.all(50), anchor: Anchor.center);
 
   // Movement and rotation speeds
@@ -36,6 +40,9 @@ class Ship extends SpriteComponent with KeyboardHandler {
     );
     _thrusterEffect.opacity = 0; // Hidden by default
     add(_thrusterEffect);
+    
+    // Add hitbox for collision detection
+    add(CircleHitbox());
   }
 
   @override
@@ -73,6 +80,15 @@ class Ship extends SpriteComponent with KeyboardHandler {
       _shoot();
       _timeSinceLastShot = 0;
     }
+    
+    // Check screen boundary collision
+    final visibleRect = game.camera.visibleWorldRect;
+    if (position.x - size.x / 2 < visibleRect.left ||
+        position.x + size.x / 2 > visibleRect.right ||
+        position.y - size.y / 2 < visibleRect.top ||
+        position.y + size.y / 2 > visibleRect.bottom) {
+      game.stateManager.triggerGameOver(reason: 'You hit the screen boundary!');
+    }
   }
 
   void _shoot() {
@@ -90,5 +106,13 @@ class Ship extends SpriteComponent with KeyboardHandler {
     _keysPressed.clear();
     _keysPressed.addAll(keysPressed);
     return true;
+  }
+
+  @override
+  void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
+    if (other is Meteor) {
+      game.stateManager.triggerGameOver(reason: 'You crashed into a meteor!');
+    }
+    super.onCollision(intersectionPoints, other);
   }
 }

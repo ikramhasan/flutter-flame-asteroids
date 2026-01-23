@@ -1,4 +1,5 @@
 import 'dart:math';
+import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 
 class MeteorSprite {
@@ -46,6 +47,9 @@ class Meteor extends SpriteComponent with HasGameReference {
 
     // Add some random rotation for visual variety
     angle = _random.nextDouble() * 2 * pi;
+    
+    // Add hitbox for collision detection
+    add(CircleHitbox());
   }
 
   @override
