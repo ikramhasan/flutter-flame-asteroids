@@ -2,6 +2,10 @@
 
 A modern take on the classic Asteroids experience built with Flutter and Flame. It features ship selection, progressive difficulty, weapon upgrades, and arcade controls.
 
+Try it out here (wait for it to load)👇
+
+## [https://ikramhasan.github.io/flutter-flame-asteroids/](https://ikramhasan.github.io/flutter-flame-asteroids/)
+
 ## Features
 - Ship selection screen with 7 ship variants
 - Classic inertial movement (glide) with rotation controls
