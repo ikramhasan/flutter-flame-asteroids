@@ -46,7 +46,12 @@ class Ship extends PositionComponent
     )..opacity = 0;
 
     _thrusterEffect.priority = -1;
-    addAll([_thrusterEffect, _shipSprite, CircleHitbox()]);
+    final hitbox = CircleHitbox(
+      radius: size.x * 0.28,
+      anchor: Anchor.center,
+      position: size / 2,
+    );
+    addAll([_thrusterEffect, _shipSprite, hitbox]);
   }
 
   @override

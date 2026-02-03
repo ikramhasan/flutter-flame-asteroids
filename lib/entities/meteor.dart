@@ -76,7 +76,7 @@ class Meteor extends SpriteComponent
     );
 
     angle = _random.nextDouble() * 2 * pi;
-    add(CircleHitbox());
+    add(CircleHitbox()..radius = size.x * 0.3);
   }
 
   @override
