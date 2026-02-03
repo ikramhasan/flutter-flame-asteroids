@@ -99,6 +99,42 @@ class _StartOverlayState extends State<StartOverlay> {
                         },
                       ),
                       const SizedBox(height: 32),
+                      const Text.rich(
+                        TextSpan(
+                          text: 'Controls: ',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white70,
+                            fontFamily: 'Kenney',
+                            letterSpacing: 1,
+                          ),
+                          children: [
+                            TextSpan(
+                              text: 'W/↑',
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
+                            TextSpan(text: ' thrust, '),
+                            TextSpan(
+                              text: 'A/←',
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
+                            TextSpan(text: ' rotate left, '),
+                            TextSpan(
+                              text: 'D/→',
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
+                            TextSpan(text: ' rotate right, '),
+                            TextSpan(
+                              text: 'Space',
+                              style: TextStyle(color: Colors.greenAccent),
+                            ),
+                            TextSpan(text: ' fire'),
+                          ],
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: () {
                           widget.game.startGame(shipAsset: _selectedShip);
