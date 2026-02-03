@@ -106,9 +106,26 @@ class Ship extends PositionComponent
   }
 
   void _shoot() {
-    final bulletOffset = Vector2(sin(angle), -cos(angle)) * (size.y / 2);
-    final bulletPosition = position + bulletOffset;
-    parent?.add(Bullet(position: bulletPosition, direction: angle));
+    final level = game.stateManager.upgradeLevel;
+    final fireCount = level == 0 ? 1 : (level == 1 ? 2 : 3);
+    final spread = level >= 2 ? 0.18 : 0.12;
+
+    game.sfx.play(GameAudio.shoot, volume: 0.5);
+
+    if (fireCount == 1) {
+      final bulletOffset = Vector2(sin(angle), -cos(angle)) * (size.y / 2);
+      final bulletPosition = position + bulletOffset;
+      parent?.add(Bullet(position: bulletPosition, direction: angle));
+      return;
+    }
+
+    for (int i = 0; i < fireCount; i++) {
+      final t = fireCount == 2 ? (i == 0 ? -0.5 : 0.5) : (i - 1);
+      final bulletAngle = angle + spread * t;
+      final bulletOffset =
+          Vector2(sin(bulletAngle), -cos(bulletAngle)) * (size.y / 2);
+      parent?.add(Bullet(position: position + bulletOffset, direction: bulletAngle));
+    }
   }
 
   void _applyMovement(double dt) {

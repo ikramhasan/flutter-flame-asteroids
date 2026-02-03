@@ -14,6 +14,10 @@ class GameTuning {
   static const double shipMaxSpeed = 320;
   static const double shipLinearDrag = 0.95;
 
+  // Upgrades
+  static const double upgradeSpawnInterval = 12;
+  static const double upgradeSpawnPadding = 60;
+
   // Bullet
   static const double bulletSize = 8;
   static const double bulletSpeed = 500;

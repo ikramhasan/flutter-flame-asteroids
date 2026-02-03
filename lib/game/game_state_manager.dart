@@ -27,10 +27,16 @@ class GameStateManager {
 
   int _score = 0;
   int _highScore = 0;
+  int _upgradeLevel = 0;
 
   int get score => _score;
   int get highScore => _highScore;
   String? get lastGameOverReason => _lastGameOverReason;
+  int get upgradeLevel => _upgradeLevel;
+  bool get hasMaxUpgrade => _upgradeLevel >= maxUpgradeLevel;
+  bool get canSpawnUpgrade => _currentState == GameState.playing && !hasMaxUpgrade;
+
+  static const int maxUpgradeLevel = 2;
 
   /// Whether current score is a new high score.
   bool get isNewHighScore => _score > 0 && _score >= _highScore;
@@ -79,6 +85,7 @@ class GameStateManager {
   void restartGame() {
     _currentState = GameState.playing;
     _score = 0;
+    _upgradeLevel = 0;
     _lastGameOverReason = null;
     game.overlays.remove(AsteroidsGame.overlayGameOver);
     game.resumeEngine();
@@ -104,6 +111,15 @@ class GameStateManager {
   void startGame() {
     _currentState = GameState.playing;
     _score = 0;
+    _upgradeLevel = 0;
     _lastGameOverReason = null;
+  }
+
+  /// Applies the next available weapon upgrade.
+  void applyUpgrade() {
+    if (_upgradeLevel >= maxUpgradeLevel) {
+      return;
+    }
+    _upgradeLevel += 1;
   }
 }

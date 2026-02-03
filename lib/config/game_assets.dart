@@ -7,6 +7,7 @@ class GameAssets {
   static const ship = 'ship_G.png';
   static const thruster = 'effect_purple.png';
   static const bullet = 'star_tiny.png';
+  static const upgradeIcon = 'icon_plusSmall.png';
 
   static const meteorLarge = 'meteor_large.png';
   static const meteorSmall = 'meteor_small.png';
@@ -33,6 +34,7 @@ class GameAssets {
     ...shipVariants,
     thruster,
     bullet,
+    upgradeIcon,
     meteorLarge,
     meteorSmall,
     meteorDetailedLarge,

@@ -27,7 +27,6 @@ class Bullet extends SpriteComponent with HasGameReference<AsteroidsGame> {
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(GameAssets.bullet);
-    await game.sfx.play(GameAudio.shoot, volume: 0.5);
     add(CircleHitbox());
   }
 
