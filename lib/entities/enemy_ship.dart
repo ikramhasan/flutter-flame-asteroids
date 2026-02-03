@@ -9,6 +9,7 @@ import 'package:asteroids/game/asteroids_game.dart';
 import 'package:asteroids/utils/viewport_bounds.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
+import 'package:flutter/material.dart';
 
 /// Enemy ship that chases the player and shoots.
 class EnemyShip extends SpriteComponent
@@ -29,6 +30,8 @@ class EnemyShip extends SpriteComponent
   @override
   Future<void> onLoad() async {
     sprite = await Sprite.load(_spriteForLevel(level));
+    paint = Paint()
+      ..colorFilter = const ColorFilter.mode(Colors.redAccent, BlendMode.modulate);
     add(CircleHitbox());
   }
 
