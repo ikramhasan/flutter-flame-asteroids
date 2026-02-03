@@ -26,6 +26,7 @@ class Ship extends PositionComponent
   final Set<LogicalKeyboardKey> _keysPressed = {};
   late final SpriteComponent _thrusterEffect;
   late final SpriteComponent _shipSprite;
+  Vector2 _velocity = Vector2.zero();
 
   @override
   Future<void> onLoad() async {
@@ -59,8 +60,8 @@ class Ship extends PositionComponent
     _thrusterEffect.opacity = isThrusting ? 1 : 0;
 
     if (isThrusting) {
-      position.x += sin(angle) * GameTuning.shipMoveSpeed * dt;
-      position.y -= cos(angle) * GameTuning.shipMoveSpeed * dt;
+      final thrust = Vector2(sin(angle), -cos(angle));
+      _velocity += thrust * GameTuning.shipThrustAcceleration * dt;
     }
     if (_keysPressed.contains(LogicalKeyboardKey.keyA) ||
         _keysPressed.contains(LogicalKeyboardKey.arrowLeft)) {
@@ -78,6 +79,8 @@ class Ship extends PositionComponent
       _shoot();
       _timeSinceLastShot = 0;
     }
+
+    _applyMovement(dt);
 
     final bounds = ViewportBounds(game.camera.visibleWorldRect);
     if (bounds.isOutsideComponent(this)) {
@@ -106,5 +109,16 @@ class Ship extends PositionComponent
     final bulletOffset = Vector2(sin(angle), -cos(angle)) * (size.y / 2);
     final bulletPosition = position + bulletOffset;
     parent?.add(Bullet(position: bulletPosition, direction: angle));
+  }
+
+  void _applyMovement(double dt) {
+    if (_velocity.length2 > GameTuning.shipMaxSpeed * GameTuning.shipMaxSpeed) {
+      _velocity = _velocity.normalized() * GameTuning.shipMaxSpeed;
+    }
+
+    position += _velocity * dt;
+
+    final drag = pow(GameTuning.shipLinearDrag, dt * 60).toDouble();
+    _velocity *= drag;
   }
 }

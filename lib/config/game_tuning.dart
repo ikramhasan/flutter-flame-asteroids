@@ -10,6 +10,9 @@ class GameTuning {
   static const double thrusterWidth = 30;
   static const double thrusterHeight = 20;
   static const double thrusterOffset = 10;
+  static const double shipThrustAcceleration = 420;
+  static const double shipMaxSpeed = 320;
+  static const double shipLinearDrag = 0.95;
 
   // Bullet
   static const double bulletSize = 8;
