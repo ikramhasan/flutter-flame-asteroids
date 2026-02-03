@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:asteroids/config/game_assets.dart';
 import 'package:asteroids/config/game_tuning.dart';
 import 'package:asteroids/entities/bullet.dart';
+import 'package:asteroids/entities/enemy_ship.dart';
 import 'package:asteroids/entities/meteor.dart';
 import 'package:asteroids/game/asteroids_game.dart';
 import 'package:asteroids/utils/viewport_bounds.dart';
@@ -101,6 +102,9 @@ class Ship extends PositionComponent
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
     if (other is Meteor) {
       game.stateManager.triggerGameOver(reason: 'You crashed into a meteor!');
+    }
+    if (other is EnemyShip) {
+      game.stateManager.triggerGameOver(reason: 'You crashed into an enemy!');
     }
     super.onCollision(intersectionPoints, other);
   }

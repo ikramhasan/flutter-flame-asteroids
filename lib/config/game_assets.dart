@@ -9,6 +9,15 @@ class GameAssets {
   static const bullet = 'star_tiny.png';
   static const upgradeIcon = 'icon_plusSmall.png';
 
+  /// Selectable enemy sprites by level.
+  static const List<String> enemyVariants = [
+    'enemy_A.png',
+    'enemy_B.png',
+    'enemy_C.png',
+    'enemy_D.png',
+    'enemy_E.png',
+  ];
+
   static const meteorLarge = 'meteor_large.png';
   static const meteorSmall = 'meteor_small.png';
   static const meteorDetailedLarge = 'meteor_detailedLarge.png';
@@ -32,6 +41,7 @@ class GameAssets {
   /// Images to preload at startup.
   static const List<String> preloadImages = [
     ...shipVariants,
+    ...enemyVariants,
     thruster,
     bullet,
     upgradeIcon,

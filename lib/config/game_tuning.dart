@@ -43,6 +43,16 @@ class GameTuning {
   static const double meteorSplitMinSize = 25;
   static const double meteorSplitSizeRange = 15;
 
+  // Enemies
+  static const double enemySpawnInterval = 8;
+  static const double enemySpawnMargin = 120;
+  static const double enemyOffscreenMargin = 220;
+  static const double enemySpeed = 90;
+  static const double enemyShootCooldown = 1.6;
+  static const double enemySize = 42;
+  static const double enemyBulletSpeed = 360;
+  static const int enemyLevelScoreStep = 250;
+
   // Scoring
   static const int largeMeteorPoints = 50;
   static const int smallMeteorPoints = 100;

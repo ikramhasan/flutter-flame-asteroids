@@ -35,6 +35,13 @@ class GameStateManager {
   int get upgradeLevel => _upgradeLevel;
   bool get hasMaxUpgrade => _upgradeLevel >= maxUpgradeLevel;
   bool get canSpawnUpgrade => _currentState == GameState.playing && !hasMaxUpgrade;
+  int get unlockedEnemyLevel {
+    if (_currentState != GameState.playing) {
+      return 1;
+    }
+    final unlocked = 1 + (_score ~/ GameTuning.enemyLevelScoreStep);
+    return unlocked.clamp(1, 5);
+  }
 
   static const int maxUpgradeLevel = 2;
 
