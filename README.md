@@ -1,16 +1,51 @@
-# asteroids
+# Asteroids (Flutter + Flame)
 
-A new Flutter project.
+A modern take on the classic Asteroids experience built with Flutter and Flame. It features ship selection, progressive difficulty, weapon upgrades, and arcade controls.
 
-## Getting Started
+## Features
+- Ship selection screen with 7 ship variants
+- Classic inertial movement (glide) with rotation controls
+- Meteors that split and score system with high score persistence
+- Weapon upgrades (two levels) with a collectible pickup
+- Enemy ships that spawn progressively and engage the player
+- UI overlays (start screen + game over)
 
-This project is a starting point for a Flutter application.
+## Controls
+- Thrust: `W` or `Arrow Up`
+- Rotate Left: `A` or `Arrow Left`
+- Rotate Right: `D` or `Arrow Right`
+- Fire: `Space`
 
-A few resources to get you started if this is your first Flutter project:
+## Gameplay Notes
+- Enemies begin spawning after the first weapon upgrade is collected.
+- Enemy tiers unlock progressively as your score increases.
+- Weapon upgrades appear twice; after the second, no more upgrades spawn.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Project Structure
+- `lib/audio/` Sound effect abstraction
+- `lib/config/` Assets and tuning constants
+- `lib/entities/` Player, meteors, bullets, enemies, upgrades
+- `lib/game/` Game root and state manager
+- `lib/ui/` Flutter overlays
+- `lib/utils/` Shared helpers
+- `lib/world/` World and spawners
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Run Locally
+1. Install Flutter (stable channel)
+2. Fetch packages: `flutter pub get`
+3. Run: `flutter run`
+
+## Tuning
+Most gameplay values are centralized in `lib/config/game_tuning.dart`, including:
+- Ship acceleration, drag, and max speed
+- Meteor and enemy spawn rates
+- Enemy movement and bullet speed
+
+## Assets
+All game sprites and audio are loaded from `assets/` and configured in `pubspec.yaml`.
+
+## Credits
+- [Flame](https://github.com/flame-engine/flame)
+- [Flutter](https://github.com/flutter/flutter)
+- [Sound effects](https://freesound.org/)
+- [Assets](https://kenney.nl/assets/simple-space)
