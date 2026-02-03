@@ -1,6 +1,7 @@
-import 'package:asteroids/game.dart';
+import 'package:asteroids/game/asteroids_game.dart';
 import 'package:flutter/material.dart';
 
+/// Overlay shown when the player loses.
 class GameOverOverlay extends StatelessWidget {
   const GameOverOverlay({super.key, required this.game});
 
@@ -80,6 +81,19 @@ class GameOverOverlay extends StatelessWidget {
                   shadows: const [Shadow(color: Colors.amber, blurRadius: 10)],
                 ),
               ),
+            if (game.stateManager.lastGameOverReason != null) ...[
+              const SizedBox(height: 12),
+              Text(
+                game.stateManager.lastGameOverReason!,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white70,
+                  fontFamily: 'Kenney',
+                ),
+              ),
+            ],
             const SizedBox(height: 48),
             ElevatedButton(
               onPressed: () {
